@@ -1,4 +1,3 @@
-//console.log("Everything is OK");
 var key = {
 	UP: 38,
 	DOWN: 40,
@@ -6,13 +5,19 @@ var key = {
 	RIGHT: 39
 };
 
-document.addEventListener("keyup", wormPath);
+var x = 150;
+var y = 150;
 
-function DrawLine(canvasId, width, color, cap, xStart, yStart, xFinal, yFinal) {
+document.addEventListener("keydown", wormPath);
+
+function DrawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFinal) {
     var canvas = document.getElementById(canvasId);
     var context = canvas.getContext("2d");
     context.beginPath();
     context.strokeStyle = color;
+    context.lineWidth = width;
+    context.lineJoin = join;
+    context.lineCap = cap;
     context.moveTo(xStart, yStart);
     context.lineTo(xFinal, yFinal);
     context.stroke();
@@ -20,18 +25,34 @@ function DrawLine(canvasId, width, color, cap, xStart, yStart, xFinal, yFinal) {
 }
 
 function wormPath(whichKeyIsPressing) {
+	// console.log (whichKeyIsPressing.keyCode);
+	var advance = 1;
+	var name  = "myCanvas";
+	var color = "red";
+	var width = 2.5;
+	var join = "round";
+	var cap = "round";
+
 	switch (whichKeyIsPressing.keyCode) {
 		case key.UP:
-		// Code here
+		DrawLine(name, width, color, join, cap, x, y, x, y - advance);
+		x = x;
+		y = y - advance;
 		break;
 		case key.DOWN:
-		// Code here
+		DrawLine(name, width, color, join, cap, x, y, x, y + advance);
+		x = x
+		y = y + advance;
 		break;
 		case key.LEFT:
-		// Code here
+		DrawLine(name, width, color, join, cap, x, y, x - advance, y);
+		x = x - advance;
+		y = y
 		break;
 		case key.RIGHT:
-		// Code here
+		DrawLine(name, width, color, join, cap, x, y, x + advance, y);
+		x = x + advance;
+		y = y;
 		break;
 		default:
 		break;
