@@ -1,16 +1,15 @@
-var key = {
-	UP: 38,
-	DOWN: 40,
-	LEFT: 37,
-	RIGHT: 39
-};
+var canvasId  = "myCanvas";
+var element = document.getElementById(canvasId);
+var color = "red";
+var width = 1;
+var join = "round";
+var cap = "round";
+var xStart;
+var yStart;
+var xFinal;
+var yFinal;
 
-var x = 150;
-var y = 150;
-
-document.addEventListener("keydown", wormPath);
-
-function DrawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFinal) {
+function drawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFinal) {
     var canvas = document.getElementById(canvasId);
     var context = canvas.getContext("2d");
     context.beginPath();
@@ -24,37 +23,33 @@ function DrawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFi
     context.closePath();
 }
 
-function wormPath(whichKeyIsPressing) {
-	// console.log (whichKeyIsPressing.keyCode);
-	var advance = 1;
-	var name  = "myCanvas";
-	var color = "red";
-	var width = 2.5;
-	var join = "round";
-	var cap = "round";
-
-	switch (whichKeyIsPressing.keyCode) {
-		case key.UP:
-		DrawLine(name, width, color, join, cap, x, y, x, y - advance);
-		x = x;
-		y = y - advance;
-		break;
-		case key.DOWN:
-		DrawLine(name, width, color, join, cap, x, y, x, y + advance);
-		x = x
-		y = y + advance;
-		break;
-		case key.LEFT:
-		DrawLine(name, width, color, join, cap, x, y, x - advance, y);
-		x = x - advance;
-		y = y
-		break;
-		case key.RIGHT:
-		DrawLine(name, width, color, join, cap, x, y, x + advance, y);
-		x = x + advance;
-		y = y;
-		break;
-		default:
-		break;
-	}
+function gettingX(whereMouseIsClicking) {
+	var xOffset = element.offsetLeft;
+	var xClient = whereMouseIsClicking.clientX;
+	var x = xClient - xOffset;
+	console.log(x);
 }
+
+function gettingY(whereMouseIsClicking) {
+	var yOffset = element.offsetTop;
+	var yClient = whereMouseIsClicking.clientY
+	var y = yClient - yOffset;
+	console.log(y);
+}
+
+function wormPath(whereMouseIsClicking) {
+	drawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFinal)
+}
+
+function pencilDown() {
+	element.addEventListener("mousemove", gettingX);
+	element.addEventListener("mousemove", gettingY);
+}
+
+function pencilUp() {
+	element.removeEventListener("mousemove", gettingX);
+	element.removeEventListener("mousemove", gettingY);
+}
+
+document.addEventListener("mousedown", pencilDown);
+document.addEventListener("mouseup", pencilUp);
