@@ -2,3 +2,15 @@
 	border-style: solid;
 	border-width: 1px;
 }
+
+.controlPanel form label {
+	display: block;
+	padding: 5px;
+	margin:  5px;
+}
+
+.controlPanel form label .inputBox {
+	height: 20px;
+	width: 100px;
+	left: 200px;
+}

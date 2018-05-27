@@ -1,13 +1,15 @@
-var canvasId  = "myCanvas";
+var canvasId = "myCanvas";
 var element = document.getElementById(canvasId);
-var color = "red";
-var width = 1;
-var join = "round";
+var color = "brown";
+var width = 5;
+var join = "miter";
 var cap = "round";
 var xStart;
 var yStart;
 var xFinal;
 var yFinal;
+var x;
+var y;
 
 function drawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFinal) {
     var canvas = document.getElementById(canvasId);
@@ -23,33 +25,30 @@ function drawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFi
     context.closePath();
 }
 
-function gettingX(whereMouseIsClicking) {
-	var xOffset = element.offsetLeft;
-	var xClient = whereMouseIsClicking.clientX;
-	var x = xClient - xOffset;
-	console.log(x);
+function draw() {
+    drawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFinal)
+    xStart = xFinal;
+    yStart = yFinal;
 }
 
-function gettingY(whereMouseIsClicking) {
-	var yOffset = element.offsetTop;
-	var yClient = whereMouseIsClicking.clientY
-	var y = yClient - yOffset;
-	console.log(y);
-}
-
-function wormPath(whereMouseIsClicking) {
-	drawLine(canvasId, color, width, join, cap, xStart, yStart, xFinal, yFinal)
+function gettingCoords(whereMouseIsClicking) {
+    x = whereMouseIsClicking.layerX;
+    y = whereMouseIsClicking.layerY;
 }
 
 function pencilDown() {
-	element.addEventListener("mousemove", gettingX);
-	element.addEventListener("mousemove", gettingY);
+    xStart = x;
+    yStart = y;
+    element.addEventListener("mousemove", gettingCoords);
+    element.addEventListener("mousemove", function() { xFinal = x;
+        yFinal = y; });
+    element.addEventListener("mousemove", draw);
 }
 
 function pencilUp() {
-	element.removeEventListener("mousemove", gettingX);
-	element.removeEventListener("mousemove", gettingY);
+    element.removeEventListener("mousemove", gettingCoords);
 }
 
-document.addEventListener("mousedown", pencilDown);
-document.addEventListener("mouseup", pencilUp);
+element.addEventListener("mousedown", gettingCoords);
+element.addEventListener("mousedown", pencilDown);
+element.addEventListener("mouseup", pencilUp);

@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Keyboard Events</title>
-	<link rel="stylesheet" href="keyboard.css">
+    <meta charset="UTF-8">
+    <title>Drawing with mouse</title>
+    <link rel="stylesheet" href="keyboard.css">
 </head>
+
 <body>
-	<h1>Drawing with keyboard</h1>
-	<canvas id="myCanvas" width="300px" height="300px">The navigator does not support Canvas</canvas>
-	<script src="keyboard.js" type="text/javascript" charset="utf-8" async defer></script>
+    <h1>Imagine, draw and enjoy!</h1>
+    <div class="controlPanel">
+        <form>
+            <label>CANVAS DIMENSION:
+                <input id="txtDimension" class="inputBox" type="number" max="500">
+            </label>
+            <label class="lbl">COLOR:
+                <input id="txtColor" class="inputBox" type="color">
+            </label>
+            <label>WIDTH: 1
+                <input id="txtLineWidth" class="inputBox" type="range" name="weight" min="1" n max="10"> 10
+            </label>
+            <label>JOIN:
+                <input id="radBevel" class="radioButton" type="radio" name="join" value="bevel">Bevel
+                <input id="radRound" class="radioButton" type="radio" name="join" value="round">Round
+                <input id="radMiter" class="radioButton" type="radio" name="join" value="miter">Miter
+            </label>
+            <label>CAP:
+                <input id="radButt" class="radioButton" type="radio" name="cap" value="butt">Butt
+                <input id="radRound" class="radioButton" type="radio" name="cap" value="round">Round
+                <input id="radSquare" class="radioButton" type="radio" name="cap" value="square">Square
+            </label>
+            <br/>
+            <input id="btnShow" class="actionButton" type="button" value="Show">
+            <input id="btnClear" class="actionButton" type="reset" value="Clear">
+        </form>
+    </div>
+    <div class="canvasContainer">
+        <canvas id="myCanvas" width="800" height="300px">The navigator does not support Canvas</canvas>
+    </div>
+    <script src="keyboard.js" type="text/javascript" charset="utf-8" async defer></script>
 </body>
+
 </html>
